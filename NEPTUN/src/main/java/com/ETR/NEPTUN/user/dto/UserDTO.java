@@ -1,4 +1,12 @@
 package com.ETR.NEPTUN.user.dto;
 
-public class UserDTO {
+import java.time.LocalDate;
+
+public record UserDTO(String username,
+                      String doBorn,
+                      LocalDate doBirth,
+                      String firstName,
+                      String lastName,
+                      String status,
+                      String major) {
 }
