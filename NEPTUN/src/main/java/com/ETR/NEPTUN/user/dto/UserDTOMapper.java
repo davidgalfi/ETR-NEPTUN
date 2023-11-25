@@ -17,7 +17,9 @@ public class UserDTOMapper implements Function<User, UserDTO> {
             input.getFirstName(),
             input.getLastName(),
             input.getStatus(),
-            input.getMajor()
+            input.getMajor(),
+            input.getAddExam(),
+            input.getAddCourse()
         );
     }
 }

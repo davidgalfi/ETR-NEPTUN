@@ -44,4 +44,84 @@ public class Course {
 
     @OneToMany(mappedBy = "course")
     private Set<AddCourse> addCourses;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public int getWeeklyHours() {
+        return weeklyHours;
+    }
+
+    public void setWeeklyHours(int weeklyHours) {
+        this.weeklyHours = weeklyHours;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Exam> getExam() {
+        return exam;
+    }
+
+    public void setExam(Set<Exam> exam) {
+        this.exam = exam;
+    }
+
+    public Set<AddCourse> getAddCourses() {
+        return addCourses;
+    }
+
+    public void setAddCourses(Set<AddCourse> addCourses) {
+        this.addCourses = addCourses;
+    }
 }

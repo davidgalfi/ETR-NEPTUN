@@ -54,7 +54,56 @@
                             <th>Vezetéknév</th>
                             <td th:text="${user.lastName}"></td>
                         </tr>
+                        <tr>
+                            <th>Születési hely</th>
+                            <td th:text="${user.doBorn}"></td>
+                        </tr>
+                        <tr>
+                            <th>Születési idő</th>
+                            <td th:text="${user.doBirth}"></td>
+                        </tr>
+                        <tr>
+                            <th>Státusz</th>
+                            <td th:text="${user.status}"></td>
+                        </tr>
+                        <tr>
+                            <th>Szak</th>
+                            <td th:text="${user.major}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2>Felvett kurzusok</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Kód</th>
+                            <th scope="col">Cím</th>
+                            <th scope="col">Férőhely</th>
+                            <th scope="col">Jelleg</th>
+                            <th scope="col">Szemeszter</th>
+                            <th scope="col">Heti óraszám</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="course : ${user.course}">
+                            <td th:text="${user.addCourse.course.id}"></td>
+                            <td th:text="${user.addCourse.course.title}"></td>
+                            <td th:text="${user.addCourse.course.capacity}"></td>
+                            <td th:text="${user.addCourse.course.type}"></td>
+                            <td th:text="${user.addCourse.course.semester}"></td>
+                            <td th:text="${user.addCourse.course.weeklyHours}">óra</td>
+                        </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
