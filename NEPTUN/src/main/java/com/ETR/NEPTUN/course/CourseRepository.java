@@ -15,4 +15,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM Course u WHERE u.user.username = ?1 AND u.id = ?2")
     boolean isTeacherOwnTheCourse(String username, Long courseId);
+
+
 }

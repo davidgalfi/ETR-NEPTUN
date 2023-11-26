@@ -14,14 +14,13 @@ import com.ETR.NEPTUN.room.Room;
 import com.ETR.NEPTUN.room.RoomService;
 import com.ETR.NEPTUN.user.dto.RegisterUser;
 import com.ETR.NEPTUN.user.dto.UserDTO;
+import com.ETR.NEPTUN.user.dto.UsersCourseNumber;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -58,9 +57,10 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
-                        HttpSession session, Model model) {
+                        HttpSession session, Model model, RedirectAttributes redirectAttributes) {
         if (userService.isValidUser(username, password)) {
             session.setAttribute("username", username);
+            redirectAttributes.addFlashAttribute("success", "Sikeres bejelentkezés!");
             return "redirect:/dashboard";
         } else {
             model.addAttribute("error", "Hibás felhasználónév vagy jelszó");
@@ -105,6 +105,68 @@ public class UserController {
             return "Dashboard";
         }
     }
+
+    @GetMapping("/students")
+    public String studentsPage(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            return "redirect:/login";
+        } else {
+            List<UsersCourseNumber> usersCourseNumbers = userService.getAllUserCourseNumber();
+            model.addAttribute("username", username);
+            model.addAttribute("students", usersCourseNumbers);
+            return "Students";
+        }
+    }
+
+    @GetMapping("/teachers")
+    public String teachersPage(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            return "redirect:/login";
+        } else {
+            List<User> users = userService.getAllInstructorsOrderByBirthDate();
+            model.addAttribute("username", username);
+            model.addAttribute("teachers", users);
+            return "Teachers";
+        }
+    }
+
+    @PostMapping("/course-update")
+    public String courseUpdate(
+            @RequestParam("courseIdU") Long courseIdU,
+            @RequestParam(value = "titleCU", required = false) String titleCU,
+            @RequestParam(value = "capacityCU", required = false) Integer capacityCU,
+            @RequestParam(value = "typeCU", required = false) String typeCU,
+            @RequestParam(value = "semesterCU", required = false) String semesterCU,
+            @RequestParam(value = "weeklyHoursCU", required = false) Integer weeklyHoursCU,
+            @RequestParam(value = "roomIdCU", required = false) Long roomIdCU,
+            RedirectAttributes redirectAttributes, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if(username == null) {
+            return "redirect:/login";
+        }
+
+        System.out.println(titleCU + " ;  " + capacityCU + " ; " + typeCU + " ; " + semesterCU + " ;" + weeklyHoursCU + " ; " + roomIdCU);
+
+
+        Room room = courseService.findByCourseId(courseIdU).getRoom();
+
+        if(capacityCU == null || capacityCU.equals(0) || capacityCU.equals(null)){
+            capacityCU = 0;
+        }
+        if(room.getCapacity().intValue() < capacityCU.intValue()){
+            redirectAttributes.addFlashAttribute("error_course_update",
+                    "Nem haladhatja meg a terem befogadóképességét: " + room.getCapacity() + " főt");
+            return "redirect:/profile";
+        }
+
+        courseService.updateCourse(courseIdU, titleCU, capacityCU, typeCU, semesterCU, weeklyHoursCU, roomIdCU);
+
+        redirectAttributes.addFlashAttribute("success_course_update", "Sikeres változtatások");
+        return "redirect:/profile";
+    }
+
 
     @PostMapping("/enroll-course/{courseId}")
     public String enrollCourse(@PathVariable("courseId") Long courseId,

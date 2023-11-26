@@ -28,6 +28,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/rooms">Termek</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/students">Hallgatók</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teachers">Oktatók</a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -37,6 +43,26 @@
         </div>
     </div>
 </nav>
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <p th:if="${error_course_update}" style="color: red" th:text="${error_course_update}"></p>
+                    <p th:if="${success_course_update}" style="color: green" th:text="${success_course_update}"></p>
+                    <p th:if="${success_delete_course}" style="color: green" th:text="${success_delete_course}"></p>
+                    <p th:if="${success_delete_exam}" style="color: green" th:text="${success_delete_exam}"></p>
+                    <p th:if="${error_course}" style="color: red" th:text="${error_course}"></p>
+                    <p th:if="${success_course}" style="color: green" th:text="${success_course}"></p>
+                    <p th:if="${error_exam}" style="color: red" th:text="${error_exam}"></p>
+                    <p th:if="${success_exam}" style="color: green" th:text="${success_exam}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -79,6 +105,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -156,7 +183,6 @@
             <div class="card">
                 <div class="card-body text-center">
                     <h2>Meghírdetett Kurzusok</h2>
-                    <p th:if="${success_delete_course}" style="color: green" th:text="${success_delete_course}"></p>
                     <table class="table">
                         <thead>
                         <tr>
@@ -196,7 +222,6 @@
             <div class="card">
                 <div class="card-body text-center">
                     <h2>Meghírdetett vizsgák</h2>
-                    <p th:if="${success_delete_exam}" style="color: green" th:text="${success_delete_exam}"></p>
                     <table class="table">
                         <thead>
                         <tr>
@@ -284,8 +309,6 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-block">Kurzus Regisztrálása</button>
                         </div>
-                        <p th:if="${error_course}" style="color: red" th:text="${error_course}"></p>
-                        <p th:if="${success_course}" style="color: green" th:text="${success_course}"></p>
                     </form>
                     </table>
                 </div>
@@ -332,9 +355,85 @@
                         <div>
                             <button type="submit" class="btn btn-primary">Viszga Regisztrálása</button>
                         </div>
-                        <p th:if="${error_exam}" style="color: red" th:text="${error_exam}"></p>
-                        <p th:if="${success_exam}" style="color: green" th:text="${success_exam}"></p>
+
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5" th:if="${user.status == 'Oktató'}">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2>Kurzus Módosítások</h2>
+                    <form th:action="@{/course-update}" method="post">
+                        <!-- Kurzuscím -->
+                        <div class="form-group">
+                            <label for="courseIdU">Kurzuscím:</label>
+                            <select class="form-control" id="courseIdU" name="courseIdU" required>
+                                <option th:each="course : ${myCourses}"
+                                        th:value="${course.id}"
+                                        th:text="${course.title + '-' + course.id}">
+                            </select>
+                        </div>
+
+                        <!-- Kurzuscím -->
+                        <div class="form-group">
+                            <label for="titleCU">Kurzuscím (változtatása):</label>
+                            <input type="text" class="form-control" id="titleCU" name="titleCU">
+                        </div>
+
+                        <!-- Férőhely -->
+                        <div class="form-group">
+                            <label for="capacityCU">Férőhely:</label>
+                            <input type="number" class="form-control" id="capacityCU" name="capacityCU">
+                        </div>
+
+                        <!-- Jelleg -->
+                        <div class="form-group">
+                            <label for="typeCU">Jelleg:</label>
+                            <input type="text" class="form-control" id="typeCU" name="typeCU">
+                        </div>
+
+                        <!-- Szemeszter -->
+                        <div class="form-group">
+                            <label for="semesterCU">Szemeszter:</label>
+                            <select class="form-control" id="semesterCU" name="semesterCU" required>
+                                <option value="NoneChange">Nincs változás</option>
+                                <option value="Őszi">Őszi</option>
+                                <option value="Tavaszi">Tavaszi</option>
+                            </select>
+                        </div>
+
+                        <!-- Heti óraszám -->
+                        <div class="form-group">
+                            <label for="weeklyHoursCU">Heti óraszám:</label>
+                            <select class="form-control" id="weeklyHoursCU" name="weeklyHoursCU" required>
+                                <option value="0">Nincs változás</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+
+                        <!-- Terem azonosítója -->
+                        <div class="form-group">
+                            <label for="roomIdCU">Terem azonosítója:</label>
+                            <select class="form-control" id="roomIdCU" name="roomIdCU" required>
+                                <option value="-1">Nincs változás</option>
+                                <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.name + '-' + room.capacity + '-' + room.id}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Változtatások végrehajtása</button>
+                        </div>
+                    </form>
+                    </table>
                 </div>
             </div>
         </div>

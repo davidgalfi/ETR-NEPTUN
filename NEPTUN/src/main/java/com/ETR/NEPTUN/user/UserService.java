@@ -3,8 +3,11 @@ package com.ETR.NEPTUN.user;
 import com.ETR.NEPTUN.user.dto.RegisterUser;
 import com.ETR.NEPTUN.user.dto.UserDTO;
 import com.ETR.NEPTUN.user.dto.UserDTOMapper;
+import com.ETR.NEPTUN.user.dto.UsersCourseNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -52,5 +55,13 @@ public class UserService {
 
     public User findWholeByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
+    }
+
+    public List<UsersCourseNumber> getAllUserCourseNumber() {
+        return userRepository.getAllUsersCourseNumber();
+    }
+
+    public List<User> getAllInstructorsOrderByBirthDate(){
+        return userRepository.getAllInstructorsOrderByBirthDate();
     }
 }

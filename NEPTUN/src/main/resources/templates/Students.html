@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <title>Kurzusok</title>
+    <title>Hallgatók</title>
 </head>
 <body>
 
@@ -17,7 +17,7 @@
                     <a class="nav-link" href="/dashboard">Főoldal</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/courses">Kurzusok</a>
+                    <a class="nav-link" href="/courses">Kurzusok</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/exams">Vizsgák</a>
@@ -29,7 +29,7 @@
                     <a class="nav-link" href="/rooms">Termek</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/students">Hallgatók</a>
+                    <a class="nav-link active" href="/students">Hallgatók</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/teachers">Oktatók</a>
@@ -49,37 +49,18 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body text-center">
-                    <h2>Összes kurzus</h2>
+                    <h2>Összes hallgató</h2>
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Kód</th>
-                            <th scope="col">Cím</th>
-                            <th scope="col">Férőhely</th>
-                            <th scope="col">Jelleg</th>
-                            <th scope="col">Szemeszter</th>
-                            <th scope="col">Heti óraszám</th>
-                            <th scope="col">Oktató</th>
+                            <th scope="col">Hallgató</th>
+                            <th scope="col">Kurzusok száma</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <p th:if="${error}" style="color: red" th:text="${error}"></p>
-                        <p th:if="${success_drop}" style="color: orange" th:text="${success_drop}"></p>
-                        <p th:if="${success_enroll}" style="color: green" th:text="${success_enroll}"></p>
-                        <tr th:each="course : ${courses}">
-                            <td th:text="${course.id}"></td>
-                            <td th:text="${course.title}"></td>
-                            <td th:text="${course.capacity}"></td>
-                            <td th:text="${course.type}"></td>
-                            <td th:text="${course.semester}"></td>
-                            <td th:text="${course.weeklyHours}">óra</td>
-                            <td th:text="${course.user.username}"></td>
-                            <td><form th:action="@{/enroll-course/{courseId}(courseId=${course.id})}" method="post">
-                                <button type="submit">Felvétel</button>
-                            </form></td>
-                            <td><form th:action="@{/drop-course/{courseId}(courseId=${course.id})}" method="post">
-                                <button type="submit">Leadás</button>
-                            </form></td>
+                        <tr th:each="student : ${students}">
+                            <td th:text="${student.username}"></td>
+                            <td th:text="${student.courseCount}"></td>
                         </tr>
                         </tbody>
                     </table>

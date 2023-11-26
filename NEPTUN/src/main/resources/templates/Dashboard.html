@@ -28,6 +28,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/rooms">Termek</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/students">Hallgatók</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teachers">Oktatók</a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -44,6 +50,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <h2>Üdvözöllek a Neptun felületén</h2>
+                    <p th:if="${success}" style="color: green" th:text="${success}"></p>
                 </div>
             </div>
         </div>
