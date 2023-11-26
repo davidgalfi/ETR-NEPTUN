@@ -51,5 +51,4 @@ public class AddExamService {
     public void deleteAllAddCourseById(Long examId) {
         addExamRepository.deleteAllByExamId(examId);
     }
-
 }

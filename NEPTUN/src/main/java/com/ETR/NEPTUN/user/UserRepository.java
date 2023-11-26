@@ -22,6 +22,6 @@ public interface UserRepository extends JpaRepository<User, String> {
             "ORDER BY ac.user.username")
     List<UsersCourseNumber> getAllUsersCourseNumber();
 
-    @Query("SELECT u FROM User u WHERE u.status = 'Oktató' ORDER BY u.doBirth ASC")
+    @Query("SELECT u FROM User u WHERE u.status = 'Oktató' ORDER BY u.doBirth DESC")
     List<User> getAllInstructorsOrderByBirthDate();
 }

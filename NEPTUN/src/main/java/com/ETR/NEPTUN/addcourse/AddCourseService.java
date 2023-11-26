@@ -58,4 +58,8 @@ public class AddCourseService {
     public void deleteAllAddCourseById(Long courseId) {
         addCourseRepository.deleteAllByCourseId(courseId);
     }
+
+    public boolean isStudentHasTheCourse(String username, Long courseId) {
+        return addCourseRepository.existsByUsernameAndId(username, courseId);
+    }
 }
