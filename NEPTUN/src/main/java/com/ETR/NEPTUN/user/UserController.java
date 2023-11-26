@@ -205,7 +205,7 @@ public class UserController {
     }
 
     @PostMapping("/delete-course/{courseId}")
-    public String deleteExam(@PathVariable("courseId") Long courseId,
+    public String deleteCourse(@PathVariable("courseId") Long courseId,
                            HttpSession session,
                            RedirectAttributes redirectAttributes) {
         String username = (String) session.getAttribute("username");
@@ -216,7 +216,24 @@ public class UserController {
             addCourseService.deleteAllAddCourseById(courseId);
 
             courseService.deleteCourse(courseId);
-            redirectAttributes.addFlashAttribute("success_delete","Sikeres törlés!");
+            redirectAttributes.addFlashAttribute("success_delete_course","Sikeres törlés!");
+            return"redirect:/profile";
+        }
+    }
+
+    @PostMapping("/delete-exam/{examId}")
+    public String deleteExam(@PathVariable("examId") Long examId,
+                             HttpSession session,
+                             RedirectAttributes redirectAttributes) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            return "redirect:/login";
+        } else {
+
+            addExamService.deleteAllAddCourseById(examId);
+
+            examService.deleteExam(examId);
+            redirectAttributes.addFlashAttribute("success_delete_exam","Sikeres törlés!");
             return"redirect:/profile";
         }
     }

@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="/profile">Profil</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/rooms">Termek</a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -123,6 +126,7 @@
                         <thead>
                         <tr>
                             <th scope="col">Kód</th>
+                            <th scope="col">Kurzus</th>
                             <th scope="col">Férőhely</th>
                             <th scope="col">Jelleg</th>
                             <th scope="col">Időpont</th>
@@ -132,6 +136,7 @@
                         <tbody>
                         <tr th:each="exam : ${addedExams}">
                             <td th:text="${exam.exam.id}"></td>
+                            <td th:text="${exam.exam.course.title}"></td>
                             <td th:text="${exam.exam.capacity}"></td>
                             <td th:text="${exam.exam.type}"></td>
                             <td th:text="${#temporals.format(exam.exam.date, 'yyyy-MM-dd HH:mm')}"></td>
@@ -151,7 +156,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <h2>Meghírdetett Kurzusok</h2>
-                    <p th:if="${success_delete}" style="color: green" th:text="${success_delete}"></p>
+                    <p th:if="${success_delete_course}" style="color: green" th:text="${success_delete_course}"></p>
                     <table class="table">
                         <thead>
                         <tr>
@@ -191,10 +196,12 @@
             <div class="card">
                 <div class="card-body text-center">
                     <h2>Meghírdetett vizsgák</h2>
+                    <p th:if="${success_delete_exam}" style="color: green" th:text="${success_delete_exam}"></p>
                     <table class="table">
                         <thead>
                         <tr>
                             <th scope="col">Kód</th>
+                            <th scope="col">Kurzus</th>
                             <th scope="col">Férőhely</th>
                             <th scope="col">Jelleg</th>
                             <th scope="col">Időpont</th>
@@ -204,10 +211,14 @@
                         <tbody>
                         <tr th:each="exam : ${myExams}">
                             <td th:text="${exam.id}"></td>
+                            <td th:text="${exam.course.title}"></td>
                             <td th:text="${exam.capacity}"></td>
                             <td th:text="${exam.type}"></td>
                             <td th:text="${#temporals.format(exam.date, 'yyyy-MM-dd HH:mm')}"></td>
                             <td th:text="${exam.room.name}"></td>
+                            <td><form th:action="@{/delete-exam/{examId}(examId=${exam.id})}" method="post">
+                                <button type="submit">Törlés</button>
+                            </form></td>
                         </tr>
                         </tbody>
                     </table>

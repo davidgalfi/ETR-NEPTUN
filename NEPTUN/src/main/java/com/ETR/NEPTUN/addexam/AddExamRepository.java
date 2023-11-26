@@ -17,4 +17,8 @@ public interface AddExamRepository extends JpaRepository<AddExam, Long> {
     @Modifying
     @Query("DELETE FROM AddExam u WHERE u.user.username = ?2 AND u.exam.id = ?1")
     void deleteByIdAndUsername(Long examId, String username);
+
+    @Modifying
+    @Query("DELETE FROM AddExam e WHERE e.exam.id = ?1")
+    void deleteAllByExamId(Long examId);
 }

@@ -46,4 +46,10 @@ public class AddExamService {
     public void deleteAddExam(Long examId, String username) {
         addExamRepository.deleteByIdAndUsername(examId,username);
     }
+
+    @Transactional
+    public void deleteAllAddCourseById(Long examId) {
+        addExamRepository.deleteAllByExamId(examId);
+    }
+
 }

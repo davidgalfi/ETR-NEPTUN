@@ -4,6 +4,7 @@ import com.ETR.NEPTUN.course.Course;
 import com.ETR.NEPTUN.exam.dto.RegisterExam;
 import com.ETR.NEPTUN.room.Room;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,5 +48,10 @@ public class ExamService {
                 room
         );
         examRepository.save(exam);
+    }
+
+    @Transactional
+    public void deleteExam(Long examId) {
+        examRepository.deleteById(examId);
     }
 }
