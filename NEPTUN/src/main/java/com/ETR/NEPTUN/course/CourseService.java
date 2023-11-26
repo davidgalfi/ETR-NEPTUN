@@ -6,6 +6,7 @@ import com.ETR.NEPTUN.room.Room;
 import com.ETR.NEPTUN.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -45,5 +46,10 @@ public class CourseService {
                 room,
                 user);
         courseRepository.save(course);
+    }
+
+    @Transactional
+    public void deleteCourse(Long courseId) {
+        courseRepository.deleteById(courseId);
     }
 }

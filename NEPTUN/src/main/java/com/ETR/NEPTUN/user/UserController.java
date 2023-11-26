@@ -204,6 +204,23 @@ public class UserController {
         }
     }
 
+    @PostMapping("/delete-course/{courseId}")
+    public String deleteExam(@PathVariable("courseId") Long courseId,
+                           HttpSession session,
+                           RedirectAttributes redirectAttributes) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            return "redirect:/login";
+        } else {
+
+            addCourseService.deleteAllAddCourseById(courseId);
+
+            courseService.deleteCourse(courseId);
+            redirectAttributes.addFlashAttribute("success_delete","Sikeres törlés!");
+            return"redirect:/profile";
+        }
+    }
+
     @GetMapping("/profile")
     public String profilePage(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");

@@ -151,6 +151,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <h2>Meghírdetett Kurzusok</h2>
+                    <p th:if="${success_delete}" style="color: green" th:text="${success_delete}"></p>
                     <table class="table">
                         <thead>
                         <tr>
@@ -172,6 +173,9 @@
                             <td th:text="${course.semester}"></td>
                             <td th:text="${course.weeklyHours}">óra</td>
                             <td th:text="${course.user.username}"></td>
+                            <td><form th:action="@{/delete-course/{courseId}(courseId=${course.id})}" method="post">
+                                <button type="submit">Törlés</button>
+                            </form></td>
                         </tr>
                         </tbody>
                     </table>

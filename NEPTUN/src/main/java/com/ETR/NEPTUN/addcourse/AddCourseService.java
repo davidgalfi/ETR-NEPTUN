@@ -49,4 +49,13 @@ public class AddCourseService {
     public void deleteAddCourse(Long courseId, String username) {
         addCourseRepository.deleteByIdAndUsername(username,courseId);
     }
+
+    public AddCourse findByCourseId(Long courseId) {
+        return addCourseRepository.findById(courseId).get();
+    }
+
+    @Transactional
+    public void deleteAllAddCourseById(Long courseId) {
+        addCourseRepository.deleteAllByCourseId(courseId);
+    }
 }

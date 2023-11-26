@@ -15,4 +15,8 @@ public interface AddCourseRepository extends JpaRepository<AddCourse, Long> {
     @Modifying
     @Query("DELETE FROM AddCourse u WHERE u.user.username = ?1 AND u.course.id = ?2")
     void deleteByIdAndUsername(String username, Long courseId);
+
+    @Modifying
+    @Query("DELETE FROM AddCourse c WHERE c.course.id = ?1")
+    void deleteAllByCourseId(Long courseId);
 }
