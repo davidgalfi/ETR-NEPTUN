@@ -40,33 +40,33 @@
     <div class="input-group">
         <label for="status">Státusz (Hallgató, Oktató):</label>
         <select id="status" name="status" required>
-            <option value="student">Hallgató</option>
-            <option value="teacher">Oktató</option>
+            <option value="Hallgató">Hallgató</option>
+            <option value="Oktató">Oktató</option>
         </select>
     </div>
     <div class="input-group">
         <label for="major">Szak:</label>
         <select id="major" name="major" required>
-            <option value="majorComputerEngineer">Programtervező informatikus</option>
-            <option value="majorBusinessInformatics">Gazdaságinformatikus</option>
-            <option value="majorBiology">Biológus</option>
-            <option value="majorMechanicalEngineer">Gépészmérnök</option>
-            <option value="majorDoctor">Orvos</option>
-            <option value="majorLawyer">Jogász</option>
-            <option value="majorEconomist">Közgazdász</option>
-            <option value="majorPsychologist">Pszichológus</option>
-            <option value="majorElectricalEngineer">Villamosmérnök</option>
-            <option value="majorChemist">Kémikus</option>
-            <option value="majorPhysicist">Fizikus</option>
-            <option value="majorMathematichian">Matematikus</option>
+            <option value="Programtervező informatikus">Programtervező informatikus</option>
+            <option value="Gazdaságinformatikus">Gazdaságinformatikus</option>
+            <option value="Biológus">Biológus</option>
+            <option value="Gépészmérnök">Gépészmérnök</option>
+            <option value="Orvos">Orvos</option>
+            <option value="Jogász">Jogász</option>
+            <option value="Közgazdász">Közgazdász</option>
+            <option value="Pszichológus">Pszichológus</option>
+            <option value="Villamosmérnök">Villamosmérnök</option>
+            <option value="Kémikus">Kémikus</option>
+            <option value="Fizikus">Fizikus</option>
+            <option value="Matematikus">Matematikus</option>
         </select>
     </div>
     <button type="submit">Register</button>
     <div class="login-link">
         <p><a href="/login">Bejelentkezés</a></p>
     </div>
-    <p th:if="${param.error}" class="error">Nem sikerült a regisztráció! Próbáld újra!</p>
-    <p th:if="${param.success}" class="success">A regisztráció sikeres!</p>
+    <p th:if="${error}" style="color: red" th:text="${error}"></p>
+    <p th:if="${success}" style="color: green" th:text="${success}"></p>
 </form>
 </div>
 

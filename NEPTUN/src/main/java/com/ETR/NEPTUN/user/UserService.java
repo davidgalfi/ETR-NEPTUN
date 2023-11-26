@@ -1,5 +1,6 @@
 package com.ETR.NEPTUN.user;
 
+import com.ETR.NEPTUN.user.dto.RegisterUser;
 import com.ETR.NEPTUN.user.dto.UserDTO;
 import com.ETR.NEPTUN.user.dto.UserDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,23 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .map(userDTOMapper::apply)
                 .orElse(null);
+    }
+
+    public boolean isUserExists(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public void registerUser(RegisterUser newUser) {
+        User user = new User(
+                newUser.username(),
+                newUser.password(),
+                newUser.doBorn(),
+                newUser.doBirth(),
+                newUser.firstName(),
+                newUser.lastName(),
+                newUser.status(),
+                newUser.major()
+        );
+        userRepository.save(user);
     }
 }

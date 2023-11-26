@@ -3,10 +3,10 @@ package com.ETR.NEPTUN.user;
 import com.ETR.NEPTUN.addcourse.AddCourse;
 import com.ETR.NEPTUN.addexam.AddExam;
 import com.ETR.NEPTUN.course.Course;
-import com.ETR.NEPTUN.exam.Exam;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
