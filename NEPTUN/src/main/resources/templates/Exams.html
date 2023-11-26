@@ -45,19 +45,31 @@
                         <thead>
                         <tr>
                             <th scope="col">Kód</th>
+                            <th scope="col">Kurzus</th>
                             <th scope="col">Férőhely</th>
                             <th scope="col">Jelleg</th>
                             <th scope="col">Időpont</th>
                             <th scope="col">Terem</th>
+                            <!--TODO: Jelenleg hány hely maradt-->
                         </tr>
                         </thead>
                         <tbody>
+                        <p th:if="${error}" style="color: red" th:text="${error}"></p>
+                        <p th:if="${success_drop}" style="color: orange" th:text="${success_drop}"></p>
+                        <p th:if="${success_enroll}" style="color: green" th:text="${success_enroll}"></p>
                         <tr th:each="exam : ${exams}">
                             <td th:text="${exam.id}"></td>
+                            <td th:text="${exam.course.title}"></td>
                             <td th:text="${exam.capacity}"></td>
                             <td th:text="${exam.type}"></td>
                             <td th:text="${#temporals.format(exam.date, 'yyyy-MM-dd HH:mm')}"></td>
                             <td th:text="${exam.room.name}"></td>
+                            <td><form th:action="@{/enroll-exam/{examId}(examId=${exam.id})}" method="post">
+                                <button type="submit">Felvétel</button>
+                            </form></td>
+                            <td><form th:action="@{/drop-exam/{examId}(examId=${exam.id})}" method="post">
+                                <button type="submit">Leadás</button>
+                            </form></td>
                         </tr>
                         </tbody>
                     </table>

@@ -31,6 +31,9 @@ public class Course {
     @Column(name = "Heti_oraszam")
     private int weeklyHours;
 
+    @Column(name = "Letszam")
+    private Integer studentsNumber;
+
     @ManyToOne
     @JoinColumn(name = "Terem_kod")
     private Room room;
@@ -56,6 +59,7 @@ public class Course {
         this.type = type;
         this.semester = semester;
         this.weeklyHours = weeklyHours;
+        this.studentsNumber = 0;
         this.room = room;
         this.user = user;
     }
@@ -66,9 +70,12 @@ public class Course {
         this.type = type;
         this.semester = semester;
         this.weeklyHours = weeklyHours;
+        this.studentsNumber = 0;
         this.room = room;
         this.user = user;
     }
+
+
 
     public Long getId() {
         return id;
@@ -148,5 +155,13 @@ public class Course {
 
     public void setAddCourses(Set<AddCourse> addCourses) {
         this.addCourses = addCourses;
+    }
+
+    public Integer getStudentsNumber() {
+        return studentsNumber;
+    }
+
+    public void setStudentsNumber(Integer studentsNumber) {
+        this.studentsNumber = studentsNumber;
     }
 }

@@ -145,6 +145,187 @@
     </div>
 </div>
 
+<div class="container mt-5" th:if="${user.status == 'Oktató'}">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2>Meghírdetett Kurzusok</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Kód</th>
+                            <th scope="col">Cím</th>
+                            <th scope="col">Férőhely</th>
+                            <th scope="col">Jelleg</th>
+                            <th scope="col">Szemeszter</th>
+                            <th scope="col">Heti óraszám</th>
+                            <th scope="col">Oktató</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="course : ${myCourses}">
+                            <td th:text="${course.id}"></td>
+                            <td th:text="${course.title}"></td>
+                            <td th:text="${course.capacity}"></td>
+                            <td th:text="${course.type}"></td>
+                            <td th:text="${course.semester}"></td>
+                            <td th:text="${course.weeklyHours}">óra</td>
+                            <td th:text="${course.user.username}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5" th:if="${user.status == 'Oktató'}">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2>Meghírdetett vizsgák</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Kód</th>
+                            <th scope="col">Férőhely</th>
+                            <th scope="col">Jelleg</th>
+                            <th scope="col">Időpont</th>
+                            <th scope="col">Terem</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="exam : ${myExams}">
+                            <td th:text="${exam.id}"></td>
+                            <td th:text="${exam.capacity}"></td>
+                            <td th:text="${exam.type}"></td>
+                            <td th:text="${#temporals.format(exam.date, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${exam.room.name}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5" th:if="${user.status == 'Oktató'}">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2>Kurzus regisztrálása</h2>
+                    <form th:action="@{/course-registration}" method="post">
+                        <!-- Kurzuscím -->
+                        <div class="form-group">
+                            <label for="title">Kurzuscím:</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+
+                        <!-- Férőhely -->
+                        <div class="form-group">
+                            <label for="capacity">Férőhely:</label>
+                            <input type="number" class="form-control" id="capacity" name="capacity" required>
+                        </div>
+
+                        <!-- Jelleg -->
+                        <div class="form-group">
+                            <label for="type">Jelleg:</label>
+                            <input type="text" class="form-control" id="type" name="type" required>
+                        </div>
+
+                        <!-- Szemeszter -->
+                        <div class="form-group">
+                            <label for="semester">Szemeszter:</label>
+                            <select class="form-control" id="semester" name="semester" required>
+                                <option value="Őszi">Őszi</option>
+                                <option value="Tavaszi">Tavaszi</option>
+                            </select>
+                        </div>
+
+                        <!-- Heti óraszám -->
+                        <div class="form-group">
+                            <label for="weeklyHours">Heti óraszám:</label>
+                            <select class="form-control" id="weeklyHours" name="weeklyHours" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+
+                        <!-- Terem azonosítója -->
+                        <div class="form-group">
+                            <label for="roomId">Terem azonosítója:</label>
+                            <select class="form-control" id="roomId" name="roomId" required>
+                                <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.name + '-' + room.capacity + '-' + room.id}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Kurzus Regisztrálása</button>
+                        </div>
+                        <p th:if="${error_course}" style="color: red" th:text="${error_course}"></p>
+                        <p th:if="${success_course}" style="color: green" th:text="${success_course}"></p>
+                    </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5" th:if="${user.status == 'Oktató'}">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2>Vizsga regisztrálása</h2>
+                    <form th:action="@{/exam-registration}" method="post">
+                        <div class="form-group">
+                            <label for="examType">Jelleg:</label>
+                            <select class="form-control" id="examType" name="typeE" required>
+                                <option value="Szóbeli">Szóbeli</option>
+                                <option value="Írásbeli">Írásbeli</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="examCapacity">Férőhely:</label>
+                            <input type="number" class="form-control" id="examCapacity" name="capacityE" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateTime">Időpont:</label>
+                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseId">Kurzus:</label>
+                            <select class="form-control" id="courseId" name="courseId" required>
+                                <option th:each="course : ${myCourses}" th:value="${course.id}"
+                                        th:text="${course.title + '-' + course.id}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomId">Terem:</label>
+                            <select class="form-control" id="roomIdE" name="roomIdE" required>
+                                <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.name + '-' + room.capacity + '-' + room.id}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Viszga Regisztrálása</button>
+                        </div>
+                        <p th:if="${error_exam}" style="color: red" th:text="${error_exam}"></p>
+                        <p th:if="${success_exam}" style="color: green" th:text="${success_exam}"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script th:src="@{bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

@@ -54,6 +54,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <p th:if="${error}" style="color: red" th:text="${error}"></p>
+                        <p th:if="${success_drop}" style="color: orange" th:text="${success_drop}"></p>
+                        <p th:if="${success_enroll}" style="color: green" th:text="${success_enroll}"></p>
                         <tr th:each="course : ${courses}">
                             <td th:text="${course.id}"></td>
                             <td th:text="${course.title}"></td>
@@ -62,6 +65,12 @@
                             <td th:text="${course.semester}"></td>
                             <td th:text="${course.weeklyHours}">óra</td>
                             <td th:text="${course.user.username}"></td>
+                            <td><form th:action="@{/enroll-course/{courseId}(courseId=${course.id})}" method="post">
+                                <button type="submit">Felvétel</button>
+                            </form></td>
+                            <td><form th:action="@{/drop-course/{courseId}(courseId=${course.id})}" method="post">
+                                <button type="submit">Leadás</button>
+                            </form></td>
                         </tr>
                         </tbody>
                     </table>

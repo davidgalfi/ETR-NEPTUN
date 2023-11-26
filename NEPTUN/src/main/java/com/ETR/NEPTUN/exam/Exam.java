@@ -26,6 +26,9 @@ public class Exam {
     @Column(name = "Idopont")
     private LocalDateTime date;
 
+    @Column(name = "Letszam")
+    private Integer studentsNumber;
+
     @ManyToOne
     @JoinColumn(name = "Kurzus_kod")
     private Course course;
@@ -40,23 +43,27 @@ public class Exam {
     public Exam() {
     }
 
-    public Exam(Long id, String type, Integer capacity, LocalDateTime date, Course course, Room room, Set<AddExam> addExam) {
+    public Exam(Long id, String type, Integer capacity, LocalDateTime date, Course course, Room room) {
         this.id = id;
         this.type = type;
         this.capacity = capacity;
         this.date = date;
+        this.studentsNumber = 0;
         this.course = course;
         this.room = room;
-        this.addExam = addExam;
     }
 
-    public Exam(String type, Integer capacity, LocalDateTime date, Course course, Room room, Set<AddExam> addExam) {
+    public Exam(String type,
+                Integer capacity,
+                LocalDateTime date,
+                Course course,
+                Room room) {
         this.type = type;
         this.capacity = capacity;
         this.date = date;
+        this.studentsNumber = 0;
         this.course = course;
         this.room = room;
-        this.addExam = addExam;
     }
 
     public Long getId() {
@@ -113,5 +120,13 @@ public class Exam {
 
     public void setAddExam(Set<AddExam> addExam) {
         this.addExam = addExam;
+    }
+
+    public Integer getStudentsNumber() {
+        return studentsNumber;
+    }
+
+    public void setStudentsNumber(Integer studentsNumber) {
+        this.studentsNumber = studentsNumber;
     }
 }
