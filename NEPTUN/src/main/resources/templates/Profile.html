@@ -92,6 +92,7 @@
                             <th scope="col">Jelleg</th>
                             <th scope="col">Szemeszter</th>
                             <th scope="col">Heti óraszám</th>
+                            <th scope="col">Oktató</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -102,6 +103,39 @@
                             <td th:text="${course.course.type}"></td>
                             <td th:text="${course.course.semester}"></td>
                             <td th:text="${course.course.weeklyHours}">óra</td>
+                            <td th:text="${course.course.user.username}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2>Felvett vizsgák</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Kód</th>
+                            <th scope="col">Férőhely</th>
+                            <th scope="col">Jelleg</th>
+                            <th scope="col">Időpont</th>
+                            <th scope="col">Terem</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="exam : ${addedExams}">
+                            <td th:text="${exam.exam.id}"></td>
+                            <td th:text="${exam.exam.capacity}"></td>
+                            <td th:text="${exam.exam.type}"></td>
+                            <td th:text="${#temporals.format(exam.exam.date, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${exam.exam.room.name}"></td>
                         </tr>
                         </tbody>
                     </table>

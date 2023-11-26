@@ -6,6 +6,7 @@ import com.ETR.NEPTUN.course.Course;
 import com.ETR.NEPTUN.room.Room;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,7 @@ public class Exam {
     private Integer capacity;
 
     @Column(name = "Idopont")
-    private String date;
+    private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "Kurzus_kod")
@@ -35,4 +36,82 @@ public class Exam {
 
     @OneToMany(mappedBy = "exam")
     private Set<AddExam> addExam;
+
+    public Exam() {
+    }
+
+    public Exam(Long id, String type, Integer capacity, LocalDateTime date, Course course, Room room, Set<AddExam> addExam) {
+        this.id = id;
+        this.type = type;
+        this.capacity = capacity;
+        this.date = date;
+        this.course = course;
+        this.room = room;
+        this.addExam = addExam;
+    }
+
+    public Exam(String type, Integer capacity, LocalDateTime date, Course course, Room room, Set<AddExam> addExam) {
+        this.type = type;
+        this.capacity = capacity;
+        this.date = date;
+        this.course = course;
+        this.room = room;
+        this.addExam = addExam;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Set<AddExam> getAddExam() {
+        return addExam;
+    }
+
+    public void setAddExam(Set<AddExam> addExam) {
+        this.addExam = addExam;
+    }
 }

@@ -2,6 +2,8 @@ package com.ETR.NEPTUN.user;
 
 import com.ETR.NEPTUN.addcourse.AddCourse;
 import com.ETR.NEPTUN.addcourse.AddCourseService;
+import com.ETR.NEPTUN.addexam.AddExam;
+import com.ETR.NEPTUN.addexam.AddExamService;
 import com.ETR.NEPTUN.user.dto.RegisterUser;
 import com.ETR.NEPTUN.user.dto.UserDTO;
 import jakarta.servlet.http.HttpSession;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 
@@ -22,11 +23,13 @@ public class UserController {
 
     private final UserService userService;
     private final AddCourseService addCourseService;
+    private final AddExamService addExamService;
 
     @Autowired
-    public UserController(UserService userService, AddCourseService addCourseService) {
+    public UserController(UserService userService, AddCourseService addCourseService, AddExamService addExamService) {
         this.userService = userService;
         this.addCourseService = addCourseService;
+        this.addExamService = addExamService;
     }
 
     //Login page
@@ -97,9 +100,20 @@ public class UserController {
         } else {
             UserDTO user = userService.findByUsername(username);
             List<AddCourse> addedCourses = addCourseService.getCoursesForUser(username);
+            List<AddExam> addedExams = addExamService.getExamsForUser(username);
             model.addAttribute("user", user);
             model.addAttribute("addedCourses", addedCourses);
+            model.addAttribute("addedExams", addedExams);
             return "Profile";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        if(session.getAttribute("username") == null){
+            return "redirect:/login";
+        }
+        session.removeAttribute("username");
+        return "redirect:/login";
     }
 }

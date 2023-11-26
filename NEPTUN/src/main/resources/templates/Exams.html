@@ -40,7 +40,27 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body text-center">
-                    <h2>Üdvözöllek a Neptun felületén</h2>
+                    <h2>Összes vizsga</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Kód</th>
+                            <th scope="col">Férőhely</th>
+                            <th scope="col">Jelleg</th>
+                            <th scope="col">Időpont</th>
+                            <th scope="col">Terem</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="exam : ${exams}">
+                            <td th:text="${exam.id}"></td>
+                            <td th:text="${exam.capacity}"></td>
+                            <td th:text="${exam.type}"></td>
+                            <td th:text="${#temporals.format(exam.date, 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${exam.room.name}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
