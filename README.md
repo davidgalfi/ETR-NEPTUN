@@ -1,4 +1,4 @@
-# ETR-NEPTUN
+# ETR-NEPTUN 🌍
 
 ## Overview
 ETR-NEPTUN is a project developed as part of a database management and design course at the University of Szeged. It serves as a replica of the Neptun Education System, a platform used by students and teachers to manage courses and exams. The system distinguishes between two types of users: teachers and students. Teachers can create courses, while students can access these courses if they meet the specified requirements. This tool aims to streamline educational interactions by providing a user-friendly interface for both students and faculty members. This description highlights the educational context and functionality of the project, focusing on its role as a Neptun system replica designed for course management.
